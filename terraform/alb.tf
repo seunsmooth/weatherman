@@ -13,7 +13,7 @@ resource "aws_lb" "alb" {
 
 resource "aws_alb_target_group" "tg" {
   name        = "${var.app_name}-${var.environment}-target-grp"
-  port        = 3000
+  port        =  "${var.running_port}"
   protocol    = "HTTP"
   vpc_id      = "${aws_vpc.vpc.id}"
   target_type = "ip"
@@ -36,8 +36,8 @@ resource "aws_alb_listener" "http" {
 }
 
 resource "aws_security_group" "alb_sg" {
-  name        = "${var.app_name}-${var.environment}-alb-sg"
-  vpc_id      = "${aws_vpc.vpc.id}"
+  name   = "${var.app_name}-${var.environment}-alb-sg"
+  vpc_id = "${aws_vpc.vpc.id}"
 
   ingress {
     protocol    = "tcp"

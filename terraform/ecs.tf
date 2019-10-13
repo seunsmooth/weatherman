@@ -35,14 +35,13 @@ resource "aws_ecs_task_definition" "web_task" {
 ]
 JSON
 
+
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "512"
   execution_role_arn       = "${aws_iam_role.ecs_execution_role.arn}"
-  depends_on = [
-    "aws_cloudwatch_log_group.ecs_log_grp"
-  ]
+  depends_on               = ["aws_cloudwatch_log_group.ecs_log_grp"]
 }
 
 resource "aws_security_group" "ecs_service" {
@@ -69,14 +68,14 @@ resource "aws_security_group" "ecs_service" {
   tags = {
     name        = "${var.app_name}-${var.environment}-ecs-service-sg"
     environment = "${var.environment}"
-    managed_by = "${var.managed_by}"
+    managed_by  = "${var.managed_by}"
   }
 }
 
 resource "aws_ecs_service" "web" {
   name            = "${var.app_name}-${var.environment}-web"
   task_definition = "${aws_ecs_task_definition.web_task.arn}"
-  desired_count   = 2
+  desired_count   = "${var.desired_container_instances}"
   launch_type     = "FARGATE"
   cluster         = "${aws_ecs_cluster.cluster.id}"
 
@@ -113,6 +112,7 @@ resource "aws_cloudwatch_log_group" "ecs_log_grp" {
   tags = {
     name        = "${var.app_name}-${var.environment}-log-group"
     environment = "${var.environment}"
-    managed_by   = "${var.managed_by}"
+    managed_by  = "${var.managed_by}"
   }
 }
+

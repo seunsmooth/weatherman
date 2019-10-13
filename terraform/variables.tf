@@ -8,13 +8,13 @@ variable "managed_by" {
 }
 
 variable "app_name" {
-  default     = "node-hello-world"
+  default     = "weatherman"
   description = "Name of the application"
 }
 
 variable "environment" {
-  default     = "dev"
-  description = "Name of the environment. e.g. prod, qa, dev"
+  default     = "prod"
+  description = "Name of the environment. e.g. prod, qa, prod"
 }
 
 variable "vpc_cidr" {
@@ -28,37 +28,46 @@ variable "az_count" {
 }
 
 variable "repository_name" {
-  default     = "node-hello-world"
+  default     = "weatherman"
   description = "Name for Docker repo"
 }
+
 // SNS Variables
 variable "sns_ecs_topic" {
-  default    =  "ecs_sink"
+  default = "ecs_sink"
+  description = "sns_ecs_topic"
 }
+
 variable "alarms_email" {
-  default     = "shegoj@yahoo.com"
-  description = "SNS Email Sink"
+  default     = "seunsmooth@yahoo.com"
+  description = "alarms_email"
 }
 
 variable "resource_high_threshold" {
-  default     = "70"  
+  default     = "70"
   description = "The maximum percentage of Resource  utilization average."
 }
 
 variable "resource_low_threshold" {
-  default     = "10"  
+  default     = "10"
   description = "The minimum percentage of Resource  utilization average."
 }
+
 variable "running_tasks_threshold" {
-  type        = "string"
   description = "Period to evaluate alarm."
   default     = "2"
 }
 
 variable "resource_utilization_period" {
-  type        = "string"
+  #type        = string
   description = "Period to evaluate alarm."
   default     = "180"
 }
-
-
+variable "desired_container_instances" {
+  description = "desired_container_instances"
+  default     = "2"
+}
+variable "running_port" {
+  description = "app running on port."
+  default     = "3000"
+}
