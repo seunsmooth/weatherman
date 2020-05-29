@@ -2,12 +2,11 @@ pipeline {
     agent any
     stages {
       stage('checkout') {
-           steps {
-             
+           steps {      
                 git branch: 'develop', url: 'yoururl'
         }
       }
-        }
+      
        stage('Ansible Init') {
             steps {
                 script {
@@ -18,8 +17,7 @@ pipeline {
                     
             }
             }
-        }
-        
+           }
         stage('Ansible Deploy') {
              
             steps {
@@ -34,3 +32,4 @@ pipeline {
         }
       
 }
+    }
