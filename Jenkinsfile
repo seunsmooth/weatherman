@@ -6,11 +6,10 @@ pipeline {
            steps {
              
                 git branch: 'develop', url: 'yoururl'
-             
-          }
         }
-    
-          stage('Ansible Init') {
+      }
+        }
+       stage('Ansible Init') {
             steps {
                 script {
                 
@@ -21,6 +20,7 @@ pipeline {
             }
             }
         }
+        
         stage('Ansible Deploy') {
              
             steps {
@@ -33,3 +33,4 @@ pipeline {
             }
             }
         }
+      
